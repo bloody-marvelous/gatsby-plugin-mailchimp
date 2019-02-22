@@ -57,9 +57,9 @@ const addToMailchimp = (email, fields, overridableEndpoint) => {
   // generate Mailchimp endpoint for jsonp request
   // note, we change `/post` to `/post-json`
   // otherwise, Mailchomp returns an error
-  const endpoint = overridableEndpoint
+  const endpoint = !!overridableEndpoint
     ? generateJSONPEndpoint(overridableEndpoint)
-    : generateJSONPEndpoint(__GATSBY_PLUGIN_MAILCHIMP_ADDRESS__);
+    : _GATSBY_PLUGIN_MAILCHIMP_ADDRESS__.replace(/\/post/g, "/post-json");
 
   const queryParams = `&EMAIL=${emailEncoded}${convertListFields(fields)}`;
   const url = `${endpoint}${queryParams}`;
